@@ -50,7 +50,7 @@ const offres = [
     </p>
 
     <div x-data="{showFav: false}">
-        <button @click="showFav = !showFav" class="border rounded bg-gray-100 p-1 m-2">
+        <button @click="showFav = !showFav" class="border rounded bg-gray-200 p-1 m-2" :class="{'bg-blue-200':showFav}">
             <span x-show="showFav">Afficher les favoris</span>
             <span x-show="!showFav">Afficher tout</span>
         </button>
