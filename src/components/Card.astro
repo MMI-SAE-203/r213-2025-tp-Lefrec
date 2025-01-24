@@ -1,9 +1,10 @@
 ---
-const {nomMaison,adresse,prix} = Astro.props;
+const {nomMaison,adresse,prix,favori} = Astro.props;
 ---
 
-<div class="border p-4">
+<div class="border p-4 rounded">
     <h3 class="text-xl">{nomMaison}</h3>
     <p>{prix}$/mois</p>
     <p>{adresse}</p>
+    <p>favori : {favori}</p>
 </div>
