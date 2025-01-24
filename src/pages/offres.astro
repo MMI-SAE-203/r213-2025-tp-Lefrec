@@ -55,10 +55,10 @@ const offres = [
             <span x-show="!showFav">Afficher tout</span>
         </button>
 
-        <div x-show="showFav" class="flex gap-4">
+        <div x-show="showFav" x-transition class="flex gap-4">
             {offres.map((offre) => <Card {...offre}/>)}
         </div>
-        <div x-show="!showFav" class="flex gap-4">
+        <div x-show="!showFav" x-transition class="flex gap-4">
             {offres.map((offre) => offre.favori && <Card {...offre}/>)}
         </div>
     </div>
