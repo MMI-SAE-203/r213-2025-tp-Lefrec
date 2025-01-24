@@ -50,16 +50,16 @@ const offres = [
     </p>
 
     <div x-data="{showFav: false}">
-        <button @click="showFav = !showFav">
+        <button @click="showFav = !showFav" class="border rounded bg-gray-100 p-1 m-2">
             <span x-show="showFav">Afficher les favoris</span>
             <span x-show="!showFav">Afficher tout</span>
         </button>
 
-        <div x-show="showFav">
+        <div x-show="showFav" class="flex gap-4">
             {offres.map((offre) => <Card {...offre}/>)}
         </div>
-        <div x-show="!showFav">
-            {offres.map((offre) => offre.favori && <Card {...offre} />)}
+        <div x-show="!showFav" class="flex gap-4">
+            {offres.map((offre) => offre.favori && <Card {...offre}/>)}
         </div>
     </div>
 </Base>
