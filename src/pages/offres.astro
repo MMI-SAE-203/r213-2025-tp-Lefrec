@@ -34,10 +34,10 @@ const offres = await allMaisons();
             <span x-show="!grid">Afficher en grid</span>
         </button>
 
-        <div x-show="showFav" x-transition :class="grid ? 'grid grid-cols-3':''">
+        <div x-show="showFav" x-transition class="gap-4" :class="grid ? 'grid grid-cols-3':'flex flex-col'">
             {offres.map((offre) => <Card {...offre} />)}
         </div>
-        <div x-show="!showFav" x-transition :class="grid ? 'grid grid-cols-3':''">
+        <div x-show="!showFav" x-transition class="gap-4" :class="grid ? 'grid grid-cols-3':'flex flex-col'">
             {offres.map((offre) => offre.favori && <Card {...offre} />)}
         </div>
     </div>
