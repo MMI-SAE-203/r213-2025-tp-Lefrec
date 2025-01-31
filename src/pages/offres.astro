@@ -26,10 +26,10 @@ const offres = await allMaisons();
             <span x-show="!showFav">Afficher tout</span>
         </button>
 
-        <div x-show="showFav" x-transition class="flex gap-4 overflow-x-scroll">
+        <div x-show="showFav" x-transition class="flex gap-4 flex-wrap">
             {offres.map((offre) => <Card {...offre} />)}
         </div>
-        <div x-show="!showFav" x-transition class="flex gap-4">
+        <div x-show="!showFav" x-transition class="flex gap-4 flex-wrap">
             {offres.map((offre) => offre.favori && <Card {...offre} />)}
         </div>
     </div>
