@@ -16,7 +16,7 @@ const offres = await allMaisons();
         critères. Votre futur bien n’attend plus que vous !
     </p>
 
-    <div x-data="{showFav: false}">
+    <div x-data="{showFav: false, grid : true}">
         <button
             @click="showFav = !showFav"
             class="border rounded bg-gray-200 p-1 m-2"
@@ -25,11 +25,19 @@ const offres = await allMaisons();
             <span x-show="showFav">Afficher les favoris</span>
             <span x-show="!showFav">Afficher tout</span>
         </button>
+        <button
+            @click="grid = !grid"
+            class="border rounded bg-gray-200 p-1 m-2"
+            :class="{'bg-blue-200':showFav}"
+        >
+            <span x-show="grid">Afficher en liste</span>
+            <span x-show="!grid">Afficher en grid</span>
+        </button>
 
-        <div x-show="showFav" x-transition class="flex gap-4 flex-wrap">
+        <div x-show="showFav" x-transition :class="grid ? 'grid grid-cols-3':''">
             {offres.map((offre) => <Card {...offre} />)}
         </div>
-        <div x-show="!showFav" x-transition class="flex gap-4 flex-wrap">
+        <div x-show="!showFav" x-transition :class="grid ? 'grid grid-cols-3':''">
             {offres.map((offre) => offre.favori && <Card {...offre} />)}
         </div>
     </div>
