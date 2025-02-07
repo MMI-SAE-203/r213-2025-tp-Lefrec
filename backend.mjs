@@ -2,6 +2,18 @@ import PocketBase from 'pocketbase';
 const pb = new PocketBase('http://127.0.0.1:8090');
 
 
+//dev web
+export async function getOffre(id) {
+    try {
+        let data = await pb.collection('maison').getOne(id);
+        data.imageUrl = pb.files.getURL(data, data.image);
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la maison', error);
+        return null;
+    }
+}
+
 //Question7
 export async function allMaisons() {
     try {
