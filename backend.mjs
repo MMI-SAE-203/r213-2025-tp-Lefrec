@@ -50,7 +50,11 @@ export async function allMaisonsSorted() {
 
 //Question14
 export async function bySurface(surfMin) {
-    const records = await pb.collection('Maison').getFullList({ filter: `surface > '${surfMin}'` })
+    let records = await pb.collection('Maison').getFullList({ filter: `surface > '${surfMin}'` })
+    records = records.map((maison) => {
+        maison.imgURL = pb.files.getURL(maison, maison.images);
+        return maison;
+    })
     return records;
 }
 

@@ -33,7 +33,9 @@ const offres = await allMaisons();
             <span x-show="grid">Afficher en liste</span>
             <span x-show="!grid">Afficher en grid</span>
         </button>
-
+        <a class="bg-slate-300" href={`/offres/surface/${50}`}>Supérieur à 50</a>
+        <a class="bg-slate-300" href={`/offres/surface/${80}`}>Supérieur à 80</a>
+        <a class="bg-slate-300" href={`/offres/surface/${200}`}>Supérieur à 200</a>
         <div x-show="showFav" x-transition class="gap-4" :class="grid ? 'grid grid-cols-3':'flex flex-col'">
             {offres.map((offre) => <Card {...offre} />)}
         </div>
