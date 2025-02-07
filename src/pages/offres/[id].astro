@@ -4,13 +4,15 @@ import Base  from '../../layouts/Base.astro';
 
 const {id} = Astro.params;
 const offre = await getOffre(id);
+console.log(offre);
 if(!offre){
    return Astro.redirect('/offres');
 }
 ---
 
 <Base titre={offre.nomMaison}>
-    <h2>{offre.nomMaison}</h2>
+    <h1>{offre.nomMaison}</h1>
+    <img src={offre.imgURL} alt="alt">
     <ul>
         <li>{offre.adresse}</li>
     </ul>

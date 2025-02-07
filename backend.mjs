@@ -6,7 +6,7 @@ const pb = new PocketBase('http://127.0.0.1:8090');
 export async function getOffre(id) {
     try {
         let data = await pb.collection('maison').getOne(id);
-        data.imageUrl = pb.files.getURL(data, data.image);
+        data.imageURL = pb.files.getURL(data, data.images);
         return data;
     } catch (error) {
         console.log('Une erreur est survenue en lisant la maison', error);
@@ -16,6 +16,15 @@ export async function getOffre(id) {
 
 export async function byPrice(priceMax) {
     let records = await pb.collection('Maison').getFullList({ filter: `prix < '${priceMax}'` })
+    records = records.map((maison) => {
+        maison.imgURL = pb.files.getURL(maison, maison.images);
+        return maison;
+    })
+    return records;
+}
+
+export async function byPriceForked(min,max) {
+    let records = await pb.collection('Maison').getFullList({ filter: `'${min}' < prix < '${max}'`})
     records = records.map((maison) => {
         maison.imgURL = pb.files.getURL(maison, maison.images);
         return maison;
