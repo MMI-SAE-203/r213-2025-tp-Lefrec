@@ -14,6 +14,15 @@ export async function getOffre(id) {
     }
 }
 
+export async function byPrice(priceMax) {
+    let records = await pb.collection('Maison').getFullList({ filter: `prix < '${priceMax}'` })
+    records = records.map((maison) => {
+        maison.imgURL = pb.files.getURL(maison, maison.images);
+        return maison;
+    })
+    return records;
+}
+
 //Question7
 export async function allMaisons() {
     try {
