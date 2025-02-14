@@ -39,7 +39,7 @@ export async function byPrice(priceMax) {
 
 export async function byPriceForked(min,max) {
     try {
-        let data = await pb.collection('Maison').getFullList({ filter: `'${min}' < prix < '${max}'`})
+        let data = await pb.collection('Maison').getFullList({ filter: `prix >= ${min} && prix <= ${max}`})
         data = data.map((maison) => {
            maison.imgURL = pb.files.getURL(maison, maison.images);
             return maison;
