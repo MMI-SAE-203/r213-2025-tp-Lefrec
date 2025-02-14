@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import { addOffre } from "../../../backend.mjs";
-let message = '';
+let message = "";
 if (Astro.request.method === "POST") {
     const formData = await Astro.request.formData();
     const response = await addOffre(formData);
@@ -10,36 +10,59 @@ if (Astro.request.method === "POST") {
 ---
 
 <Base>
-    <h1 class="text-lg">Ajouter une offre</h1>
-    <form class="flex flex-col gap-4" action="/offres/add" method="POST" enctype="multipart/form-data">
-        <input
-            type="text"
-            name="nomMaison"
-            placeholder="Nom de la maison"
-            required
-            class="w-full mt-2 p-2 border border-gray-300 rounded-md"
-        />
-        <input type="number" name="prix" placeholder="Prix" />
-        <input
-            type="number"
-            name="nbSdb"
-            placeholder="Nombre de salles de bain"
-        />
-        <input
-            type="number"
-            name="nbChambres"
-            placeholder="Nombre de chambres"
-        />
-        <input 
-            type="number" 
-            name="surface" 
-            placeholder="Superficie" 
-        />
-        <input 
-            type="file" 
-            name="images" 
-        />
-        <button type="submit">Ajouter</button>
-    </form>
-    <p>{message}</p>
+    <div class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+        <h1 class="text-2xl font-semibold text-gray-800 mb-4">
+            Ajouter une offre
+        </h1>
+        <form
+            class="flex flex-col gap-4"
+            action="/offres/add"
+            method="POST"
+            enctype="multipart/form-data"
+        >
+            <input
+                type="text"
+                name="nomMaison"
+                placeholder="Nom de la maison"
+                required
+                class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            />
+            <input
+                type="number"
+                name="prix"
+                placeholder="Prix"
+                class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            />
+            <input
+                type="number"
+                name="nbSdb"
+                placeholder="Nombre de salles de bain"
+                class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            />
+            <input
+                type="number"
+                name="nbChambres"
+                placeholder="Nombre de chambres"
+                class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            />
+            <input
+                type="number"
+                name="surface"
+                placeholder="Superficie"
+                class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            />
+            <input
+                type="file"
+                name="images"
+                class="w-full p-3 border border-gray-300 rounded-md bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            />
+            <button
+                type="submit"
+                class="w-full p-3 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition font-semibold"
+            >
+                Ajouter
+            </button>
+        </form>
+        <p class="mt-4 text-center text-red-500">{message}</p>
+    </div>
 </Base>
