@@ -14,6 +14,20 @@ export async function getOffre(id) {
     }
 }
 
+export async function getOffres() {
+    try {
+        let data = await pb.collection('maison').getFullList();
+        data = data.map((maison) => {
+            maison.imgURL = pb.files.getURL(maison, maison.images);
+            return maison;
+        })
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la maison', error);
+        return null;
+    }
+}
+
 export async function byPrice(priceMax) {
     let records = await pb.collection('Maison').getFullList({ filter: `prix < '${priceMax}'` })
     records = records.map((maison) => {
@@ -24,12 +38,12 @@ export async function byPrice(priceMax) {
 }
 
 export async function byPriceForked(min,max) {
-    let records = await pb.collection('Maison').getFullList({ filter: `'${min}' < prix < '${max}'`})
-    records = records.map((maison) => {
+    let data = await pb.collection('Maison').getFullList({ filter: `'${min}' < prix < '${max}'`})
+    data = data.map((maison) => {
         maison.imgURL = pb.files.getURL(maison, maison.images);
         return maison;
     })
-    return records;
+    return data;
 }
 
 export async function addOffre(house) {
@@ -45,6 +59,23 @@ export async function addOffre(house) {
             success: false,
             message: 'Une erreur est survenue en ajoutant la maison'
         };
+    }
+}
+
+export async function filterByPrix(prixMin, prixMax) {
+    try {
+        let data = await pb.collection('Maison').getFullList({
+            sort: '-created',
+            filter: `prix >= ${prixMin} && prix <= ${prixMax}`
+        });
+        data = data.map((maison) => {
+            maison.imageUrl = pb.files.getURL(maison, maison.image);
+            return maison;
+        });
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en filtrant la liste des maisons', error);
+        return [];
     }
 }
 

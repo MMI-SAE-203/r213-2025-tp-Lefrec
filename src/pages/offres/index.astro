@@ -1,8 +1,28 @@
 ---
 import Card from "../../components/Card.astro";
 import Base from "../../layouts/Base.astro";
-import { allMaisons } from "../../../backend.mjs";
-const offres = await allMaisons();
+import { getOffres , filterByPrix} from "../../../backend.mjs";
+let message = '';
+let offres = [];
+if (Astro.request.method === "POST") {
+    const data = await Astro.request.formData();
+    const minPrix = parseInt(data.get("minPrix"));
+    const maxPrix = parseInt(data.get("maxPrix"));
+
+    if (minPrix > 0 && maxPrix > 0 && maxPrix > minPrix) {
+        offres = await filterByPrix(minPrix, maxPrix);
+		if(offres.length === 0) {
+			message = `Pas d'offres entre ${minPrix}€ et ${maxPrix}€`;
+		} else {
+        	message = `Liste des offres entre ${minPrix}€ et ${maxPrix}€`
+		}
+    } else {
+        message = "Veuillez entrer des valeurs valides pour le prix.";
+        offres = await getOffres();
+    }
+} else {
+    offres = await getOffres();
+}
 ---
 
 <Base title="Offres">
@@ -15,6 +35,13 @@ const offres = await allMaisons();
         affiner votre recherche et découvrez des propriétés qui répondent à vos
         critères. Votre futur bien n’attend plus que vous !
     </p>
+
+    <form class="flex gap-4 my-6 border-2" action="/offres" method="POST">
+        <input type="number" name="minPrix" placeholder="Prix minimum" />
+        <input type="number" name="maxPrix" placeholder="Prix maximum" />
+        <input class="border rounded bg-gray-200 p-1 m-2" type="submit" value="Filtrer par prix" />
+    </form>
+    <p>{message}</p>
 
     <div x-data="{showFav: false, grid : true}">
         <button
