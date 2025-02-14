@@ -2,7 +2,7 @@
 const { id, nomMaison, favori, imgURL, prix, surface } = Astro.props;
 ---
 
-<div x-data=`{fav : ${favori}}` class="border p-4 rounded flex-auto">
+<div x-data=`{fav : ${favori}}` class="border p-4 rounded flex-auto max-w-[1000px]">
     <img class="rounded-md" src={imgURL} alt="alt" />
     <h3 class="text-2xl">{nomMaison}</h3>
     <div class="flex justify-between">
